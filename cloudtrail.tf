@@ -1,6 +1,8 @@
 # Get my AWS caller identity / Retrieves my connection status and credentials
 data "aws_caller_identity" "current" {}
 
+
+
 # Create an S3 bucket to store cloudtrail logs
 resource "aws_s3_bucket" "alvin_trail_bucket" {
   bucket        = "alvin-trail-bucket"
@@ -10,6 +12,19 @@ resource "aws_s3_bucket" "alvin_trail_bucket" {
     Name = "alvin-trail-bucket"
   }
 }
+
+# Enable S3 bucket server side encryption config for AWS Cloudtrail
+resource "aws_s3_bucket_server_side_encryption_configuration" "alvin_trail_bucket_encryption" {
+  bucket = aws_s3_bucket.alvin_trail_bucket.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.mykey.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
 
 # Attach S3 bucket policy
 resource "aws_s3_bucket_policy" "alvin_trail_bucket_policy" {

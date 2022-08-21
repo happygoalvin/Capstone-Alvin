@@ -6,12 +6,12 @@
 chmod 400 alvin-keypair-sydney.pem
 
 ### Configure SSH Agent on MacOS
-ssh-add -K alvin-keypair-sydney.pem
+ssh-add ---apple-use-keychain alvin-keypair-sydney.pem
 
 ### Configure the SSH Agent on Linux
 ssh-add -L alvin-keypair-sydney.pem
 
-### Connect to the bastion host instance
+### Connect to the bastion host instance on MacOS
 ssh -A ec2-user@<bastion-IP-address or DNS-entry>
 
 ### Connect to private instances from bastion host
@@ -48,7 +48,7 @@ define( 'DB_USER', 'admin' );
 define( 'DB_PASSWORD', 'hWOKAlFBI7b0gv5HtJsl' );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'terraform-20220816042702551000000003.cgjnxxvhhdwq.ap-southeast-2.rds.amazonaws.com' );
+define( 'DB_HOST', 'alvin-wordpress-db.cgjnxxvhhdwq.ap-southeast-2.rds.amazonaws.com' );
 
 /** MySQL Database charset to use in creating database tables. */
 define ( 'DB_CHARSET', 'utf8' );

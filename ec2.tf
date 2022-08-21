@@ -22,25 +22,3 @@ resource "aws_instance" "alvin_al2_bh" {
   }
 }
 
-# Wordpress instance
-resource "aws_instance" "alvin_al2_wp" {
-  ami                    = var.ec2_ami
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.alvin_webapp_sg.id]
-  subnet_id              = aws_subnet.alvin_subnet_2a.id
-  key_name               = var.my-keypair
-
-  root_block_device {
-    volume_size = 8
-    volume_type = "gp3"
-    encrypted   = true
-  }
-
-  tags = {
-    Name                       = "Alvin Amazon Linux 2 | Wordpress Server"
-    Terraform                  = "Yes"
-    Environment                = "Dev"
-    "Inspector Resource Group" = "Alvin"
-  }
-}
-
